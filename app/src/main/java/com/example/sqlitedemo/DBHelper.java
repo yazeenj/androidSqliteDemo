@@ -100,6 +100,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public void updateStudent(StudentModal studentToUpdate){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int done = studentToUpdate.isDone() == true ? 1:0;
+
+        String update_student_query = "UPDATE " + STUDENT_TABLE + " SET " + COL_STUDENT_NAME + " = " + "'" + studentToUpdate.getName() + "'"
+                + " , " + COL_STUDENT_COURSE + " = " + "'" + studentToUpdate.getCourse() + "'"
+                + " , " + COL_COURSE_DONE + " = " + "'" + done  + "'"
+                + " WHERE " + COL_ID + " = " + "'" + studentToUpdate.getId() + "'";
+
+        db.execSQL(update_student_query);
+    }
+
 
 
 }
