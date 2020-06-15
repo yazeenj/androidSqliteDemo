@@ -85,7 +85,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean deleteStudent(StudentModal studentToRemove){
         SQLiteDatabase db = this.getWritableDatabase();
-        String delete_student_query = "DELETE FROM " + STUDENT_TABLE + " WHERE " + COL_ID + " = " + studentToRemove.getId();
+
+        db.delete(STUDENT_TABLE,COL_ID + " = " + studentToRemove.getId(),null);
+
+        /*String delete_student_query = "DELETE FROM " + STUDENT_TABLE + " WHERE " + COL_ID + " = " + studentToRemove.getId();
         Cursor cursor = db.rawQuery(delete_student_query, null);
 
         if(cursor.moveToFirst()){
@@ -96,21 +99,32 @@ public class DBHelper extends SQLiteOpenHelper {
             db.close();
             cursor.close();
             return true;
-        }
+        }*/
 
+
+        return true;
     }
 
     public void updateStudent(StudentModal studentToUpdate){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        int done = studentToUpdate.isDone() == true ? 1:0;
+        /*int done = studentToUpdate.isDone() == true ? 1:0;
 
         String update_student_query = "UPDATE " + STUDENT_TABLE + " SET " + COL_STUDENT_NAME + " = " + "'" + studentToUpdate.getName() + "'"
                 + " , " + COL_STUDENT_COURSE + " = " + "'" + studentToUpdate.getCourse() + "'"
                 + " , " + COL_COURSE_DONE + " = " + "'" + done  + "'"
                 + " WHERE " + COL_ID + " = " + "'" + studentToUpdate.getId() + "'";
 
-        db.execSQL(update_student_query);
+        db.execSQL(update_student_query);*/
+
+        ContentValues cv = new ContentValues();
+        cv.put(COL_ID,studentToUpdate.getId());
+        cv.put(COL_STUDENT_NAME,studentToUpdate.getName());
+        cv.put(COL_STUDENT_COURSE, studentToUpdate.getCourse());
+        cv.put(COL_COURSE_DONE, studentToUpdate.isDone());
+
+        db.update(STUDENT_TABLE,cv,COL_ID + " = " + studentToUpdate.getId(),null);
+
     }
 
 

@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         myDbHelper.updateStudent(tempStudent);
                         Toast.makeText(MainActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                         updateViews();
+
                         updateDialog.hide();
                         updateAutoCompView();
                     }
@@ -160,8 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
         }
-
-
 
         return super.onContextItemSelected(item);
     }
